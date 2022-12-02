@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const { Student, Course } = require('../models');
+const { Student, Thought } = require('../models');
 
 // Aggregate function to get the number of students overall
 const headCount = async () =>

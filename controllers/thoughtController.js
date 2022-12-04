@@ -27,6 +27,18 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+  // createThought(req, res) {
+  //   User.findOneAndUpdate(
+  //     { _id: req.params.userId },
+  //     { $addToSet: { thought: req.body } },
+  //     { new: true }
+  //   )
+  //     .then((thought) => res.json(thought))
+  //     .catch((err) => {
+  //       console.log(err);
+  //       return res.status(500).json(err);
+  //     });
+  // },
   // Delete a thought
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
@@ -57,15 +69,15 @@ module.exports = {
     console.log('You are adding a Reaction');
     console.log(req.body);
     Thought.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { assignments: req.body } },
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
       { new: true }
     )
       .then((user) =>
         !user
           ? res
             .status(404)
-            .json({ message: 'No user found with that ID :(' })
+            .json({ message: 'No thought found with that ID :(' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
@@ -81,7 +93,7 @@ module.exports = {
         !user
           ? res
             .status(404)
-            .json({ message: 'No user found with that ID :(' })
+            .json({ message: 'No reaction found with that ID :(' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));

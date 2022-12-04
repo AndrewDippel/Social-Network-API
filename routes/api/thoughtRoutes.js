@@ -16,11 +16,11 @@ router
   .post(createThought);
 
 router
-  .route('/api/thoughts/:thoughtId/reactions')
+  .route('/:thoughtId/reactions')
   .post(createReactions)
 
 router
-  .route('/api/thoughts/:thoughtId/reactionsId')
+  .route('/:thoughtId/reactions/reactionsId')
   .delete(deleteReactions);
 router
   .route('/:thoughtId')

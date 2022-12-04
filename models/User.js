@@ -1,9 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-const friendCount = async () =>
-  Student.aggregate()
-    .count('friendCount')
-    .then((numberOfUsers) => numberOfUsers);
 
 const userSchema = new Schema(
   {
@@ -28,8 +24,7 @@ const userSchema = new Schema(
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'user',
-        friendCount: friendCount()
+        ref: 'user'
       }
     ],
   },
@@ -39,6 +34,10 @@ const userSchema = new Schema(
     },
   }
 );
+userSchema.virtual('friendsCount').get(function () {
+  const count = this.friends.length;
+  return count;
+})
 
 const User = model('user', userSchema);
 

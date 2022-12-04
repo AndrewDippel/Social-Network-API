@@ -52,4 +52,38 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+
+  createReactions(req, res) {
+    console.log('You are adding a Reaction');
+    console.log(req.body);
+    Thought.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { assignments: req.body } },
+      { new: true }
+    )
+      .then((user) =>
+        !user
+          ? res
+            .status(404)
+            .json({ message: 'No user found with that ID :(' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
+  deleteReactions(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { reactions: { reactionsId: req.params.reactionsId } } },
+      { new: true }
+    )
+      .then((user) =>
+        !user
+          ? res
+            .status(404)
+            .json({ message: 'No user found with that ID :(' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };

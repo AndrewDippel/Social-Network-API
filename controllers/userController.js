@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 
 module.exports = {
   // Get all students
@@ -103,4 +103,5 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+
 };

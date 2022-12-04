@@ -20,10 +20,7 @@ module.exports = {
       .then(async (user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json({
-            user,
-
-          })
+          : res.json({ user, })
       )
       .catch((err) => {
         console.log(err);
@@ -94,7 +91,7 @@ module.exports = {
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
+      { $addToSet: { friends: req.body.friendId } },
       { new: true }
     )
       .then((user) =>

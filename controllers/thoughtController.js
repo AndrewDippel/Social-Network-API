@@ -9,12 +9,12 @@ module.exports = {
   },
   // Get a thought
   getSingleThought(req, res) {
-    thought.findOne({ _id: req.params.thoughtId })
+    Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
-      .then((thought) =>
+      .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json(thought)
+          : res.json({ thought, })
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -35,7 +35,7 @@ module.exports = {
           ? res.status(404).json({ message: 'No thought with that ID' })
           : User.deleteMany({ _id: { $in: thought.user } })
       )
-      .then(() => res.json({ message: 'thought and user deleted!' }))
+      .then(() => res.json({ message: 'thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
   // Update a course

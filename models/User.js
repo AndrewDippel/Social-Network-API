@@ -1,5 +1,9 @@
 const { Schema, model } = require('mongoose');
 
+const friendCount = async () =>
+  Student.aggregate()
+    .count('friendCount')
+    .then((numberOfUsers) => numberOfUsers);
 
 const userSchema = new Schema(
   {
@@ -24,7 +28,8 @@ const userSchema = new Schema(
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        friendCount: friendCount()
       }
     ],
   },
